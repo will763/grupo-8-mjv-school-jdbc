@@ -7,6 +7,6 @@ import java.util.List;
 public interface ProfessorRepository {
     int criarProfessor(Professor professor);
     List<Professor> listarProfessores();
-    Professor deletarProfessor(int id);
+    Boolean deletarProfessor(int id);
     void atualizarProfessor(Professor professor);
 }

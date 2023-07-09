@@ -16,7 +16,7 @@ public class Migration {
                     "data_nascimento DATE, " +
                     "carga_horario TIME, " +
                     "valor_hora DOUBLE PRECISION, " +
-                    "estrangeiro BOOLEAN, " +
+                    "estrangeiro BOOLEAN DEFAULT FALSE, " +
                     "horas_disponiveis INT, " +
                     "biografia VARCHAR(500), " +
                     "data_hora_cadastro TIMESTAMP" +

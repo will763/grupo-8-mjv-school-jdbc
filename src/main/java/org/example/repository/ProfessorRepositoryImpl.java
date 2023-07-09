@@ -4,6 +4,7 @@ import org.example.database.FabricaConexao;
 import org.example.model.Professor;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProfessorRepositoryImpl implements ProfessorRepository{
@@ -58,15 +59,50 @@ public class ProfessorRepositoryImpl implements ProfessorRepository{
 
     @Override
     public List<Professor> listarProfessores() {
-        // criar essse metodo colocar a expressao entre try catch
+        List<Professor> professores = new ArrayList<>();
 
-        return null;
+        String sql = "SELECT * FROM professor";
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                Professor professor = new Professor();
+                professor.setId(resultSet.getInt("id"));
+                professor.setNome(resultSet.getString("nome"));
+                professor.setDataNascimento(resultSet.getDate("data_nascimento").toLocalDate());
+                professor.setCargaHorario(resultSet.getTime("carga_horario").toLocalTime());
+                professor.setValorHora(resultSet.getDouble("valor_hora"));
+                professor.setEstrangeiro(resultSet.getBoolean("estrangeiro"));
+                professor.setHorasDisponiveis(resultSet.getInt("horas_disponiveis"));
+                professor.setBiografia(resultSet.getString("biografia"));
+                professor.setDataHoraCadastro(resultSet.getTimestamp("data_hora_cadastro").toLocalDateTime());
+
+                professores.add(professor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return professores;
     }
 
     @Override
-    public Professor deletarProfessor(int id) {
-        // criar essse metodo colocar a expressao entre try catch
-        return null;
+    public Boolean deletarProfessor(int id) {
+        String sql = "DELETE FROM professor WHERE id = ?";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+
+            int rowsDeleted = statement.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     @Override
