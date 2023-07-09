@@ -14,7 +14,7 @@ public class ProfessorRepositoryImpl implements ProfessorRepository{
     }
 
     @Override
-    public void criarProfessor(Professor professor) {
+    public int criarProfessor(Professor professor) {
         try {
             String sql = """
                     INSERT INTO professor
@@ -42,20 +42,18 @@ public class ProfessorRepositoryImpl implements ProfessorRepository{
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("Um novo professor foi salvo com sucesso!");
 
-                /* se for alterar a função para retornar o ID
                 ResultSet generatedKeys = statement.getGeneratedKeys();
                 if (generatedKeys.next()) {
-                    System.out.println(generatedKeys.getInt(1));
-                    //return generatedKeys.getInt(1);
-                } */
+                    return generatedKeys.getInt(1);
+                }
             }
 
         }catch (Exception ex){
             ex.printStackTrace();
         }
 
+        return -1;
     }
 
     @Override
@@ -73,6 +71,35 @@ public class ProfessorRepositoryImpl implements ProfessorRepository{
 
     @Override
     public void atualizarProfessor(Professor professor) {
-        // criar essse metodo colocar a expressao entre try catch
+        try {
+            String sql = """
+                        UPDATE professor SET
+                        nome = ? ,
+                        data_nascimento = ? ,
+                        valor_hora = ? ,
+                        estrangeiro = ? ,
+                        horas_disponiveis = ? ,
+                        biografia = ? ,
+                        data_hora_cadastro = ? ,
+                        carga_horario = ? 
+                        WHERE id = ?                   
+                        """;
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, professor.getNome());
+            statement.setDate(2, Date.valueOf(professor.getDataNascimento()));
+            statement.setDouble(3, professor.getValorHora());
+            statement.setBoolean(4, professor.isEstrangeiro() );
+            statement.setInt(5, professor.getHorasDisponiveis());
+            statement.setString(6, professor.getBiografia());
+            statement.setTimestamp(7, Timestamp.valueOf(professor.getDataHoraCadastro()));
+            statement.setTime(8, Time.valueOf(professor.getCargaHorario()));
+            statement.setInt(9, professor.getId());
+
+            statement.executeUpdate();
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 }
