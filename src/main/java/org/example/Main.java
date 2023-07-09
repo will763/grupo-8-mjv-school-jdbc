@@ -28,7 +28,7 @@ public class Main {
 //        Integer professorId = professorRepository.criarProfessor(professor);
 //
 //        professor.setId(professorId);
-//        professor.setBiografia("kkkk");
+//        professor.setBiografia("nova biografia");
 //
 //        professorRepository.atualizarProfessor(professor);
 
