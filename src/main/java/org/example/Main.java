@@ -7,6 +7,7 @@ import org.example.repository.ProfessorRepositoryImpl;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,20 +22,22 @@ public class Main {
         professor.setEstrangeiro(true);
         professor.setHorasDisponiveis(40);
         professor.setBiografia("Um professor com uma imensa paixão por ensinar.");
+        professor.setDisciplinas(List.of("Geografia, Historia,Matematica"));
         professor.setDataHoraCadastro(LocalDateTime.now());
 
         ProfessorRepositoryImpl professorRepository = new ProfessorRepositoryImpl();
 
-//        Integer professorId = professorRepository.criarProfessor(professor);
+        //Integer professorId = professorRepository.criarProfessor(professor);
 //
-//        professor.setId(professorId);
-//        professor.setBiografia("nova biografia");
+        professor.setId(1);
+        professor.setDisciplinas(List.of("Ingles"));
+        professor.setBiografia("nova biografia");
 //
-//        professorRepository.atualizarProfessor(professor);
+        professorRepository.atualizarProfessor(professor);
 
 
    //     professorRepository.deletarProfessor(1);
 
-          professorRepository.listarProfessores().forEach(x -> System.out.println(x.getNome()));
+//          professorRepository.listarProfessores().forEach(x -> System.out.println(x.getNome()));
     }
 }

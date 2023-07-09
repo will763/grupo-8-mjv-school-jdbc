@@ -3,6 +3,7 @@ package org.example.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 public class Professor {
     private Integer id;
@@ -13,6 +14,8 @@ public class Professor {
     private boolean estrangeiro;
     private Integer horasDisponiveis;
     private String biografia;
+
+    private List<String> disciplinas;
     private LocalDateTime dataHoraCadastro;
 
     public Integer getId() {
@@ -77,6 +80,14 @@ public class Professor {
 
     public void setBiografia(String biografia) {
         this.biografia = biografia;
+    }
+
+    public List<String> getDisciplinas() {
+        return disciplinas;
+    }
+
+    public void setDisciplinas(List<String> disciplinas) {
+        this.disciplinas = disciplinas;
     }
 
     public LocalDateTime getDataHoraCadastro() {

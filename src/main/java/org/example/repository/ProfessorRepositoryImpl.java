@@ -26,10 +26,13 @@ public class ProfessorRepositoryImpl implements ProfessorRepository{
                     horas_disponiveis,
                     biografia,
                     data_hora_cadastro,
+                    disciplinas,
                     carga_horario)
                     VALUES
-                    (?, ?, ?, ?, ?, ?, ?, ? )                    
+                    (?, ?, ?, ?, ?, ?, ?, ?, ?)                    
                     """;
+
+            String disciplinas = String.join(",", professor.getDisciplinas());
 
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, professor.getNome());
@@ -39,7 +42,8 @@ public class ProfessorRepositoryImpl implements ProfessorRepository{
             statement.setInt(5, professor.getHorasDisponiveis());
             statement.setString(6, professor.getBiografia());
             statement.setTimestamp(7, Timestamp.valueOf(professor.getDataHoraCadastro()));
-            statement.setTime(8, Time.valueOf(professor.getCargaHorario()));
+            statement.setString(8, disciplinas);
+            statement.setTime(9, Time.valueOf(professor.getCargaHorario()));
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -117,9 +121,12 @@ public class ProfessorRepositoryImpl implements ProfessorRepository{
                         horas_disponiveis = ? ,
                         biografia = ? ,
                         data_hora_cadastro = ? ,
+                        disciplinas = ? ,
                         carga_horario = ? 
                         WHERE id = ?                   
                         """;
+
+            String disciplinas = String.join(",", professor.getDisciplinas());
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, professor.getNome());
@@ -129,8 +136,9 @@ public class ProfessorRepositoryImpl implements ProfessorRepository{
             statement.setInt(5, professor.getHorasDisponiveis());
             statement.setString(6, professor.getBiografia());
             statement.setTimestamp(7, Timestamp.valueOf(professor.getDataHoraCadastro()));
-            statement.setTime(8, Time.valueOf(professor.getCargaHorario()));
-            statement.setInt(9, professor.getId());
+            statement.setString(8, disciplinas);
+            statement.setTime(9, Time.valueOf(professor.getCargaHorario()));
+            statement.setInt(10, professor.getId());
 
             statement.executeUpdate();
 

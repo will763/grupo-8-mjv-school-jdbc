@@ -19,6 +19,7 @@ public class Migration {
                     "estrangeiro BOOLEAN DEFAULT FALSE, " +
                     "horas_disponiveis INT, " +
                     "biografia VARCHAR(500), " +
+                    "disciplinas VARCHAR(500)," +
                     "data_hora_cadastro TIMESTAMP" +
                     ")";
 
